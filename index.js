@@ -1,5 +1,6 @@
 require("dotenv").config({});
 const cors = require("cors");
+const morgan = require("morgan");
 const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
@@ -8,6 +9,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const app = express();
 
 app.use(cors());
+app.use(morgan("tiny"));
 
 const {
   redirectUrl,
