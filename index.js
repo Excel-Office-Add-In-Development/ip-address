@@ -5,7 +5,7 @@ const express = require("express");
 const passport = require("passport");
 const session = require("express-session");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-
+const os = require('os');
 const app = express();
 
 app.use(cors());
@@ -67,6 +67,26 @@ app.get(
     res.redirect(`${redirectUrl}?user=${user}`);
   }
 );
+
+const getPrivateIpAddress = () => {
+  const interfaces = os.networkInterfaces();
+
+  for (const interfaceName of Object.keys(interfaces)) {
+    const iface = interfaces[interfaceName];
+
+    for (const alias of iface) {
+      if (alias.family === 'IPv4' && !alias.internal) {
+        return alias.address;
+      }
+    }
+  }
+
+  return null;
+};
+app.get("/getPrivateIpAddress", (req, res) => {
+  const privateIpAddress = getPrivateIpAddress();
+  res.json({ privateIpAddress });
+});
 
 app.get("/logout", (req, res) => {
   req.logout(() => {});
