@@ -31,6 +31,7 @@ app.get("/getPrivateIpAddress", (req, res) => {
 });
 app.set('trust proxy', true);
 app.get("/getUserPrivateIpAddress", (req, res) => {
+  console.log(req.headers);
   const userPrivateIpAddress = req.ip;
   res.json({ userPrivateIpAddress });
 });
