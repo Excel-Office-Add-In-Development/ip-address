@@ -29,7 +29,7 @@ app.get("/getPrivateIpAddress", (req, res) => {
   const privateIpAddress = getPrivateIpAddress();
   res.json({ privateIpAddress });
 });
-
+app.set('trust proxy', true);
 app.get("/getUserPrivateIpAddress", (req, res) => {
   const userPrivateIpAddress = req.connection.remoteAddress;
   res.json({ userPrivateIpAddress });
